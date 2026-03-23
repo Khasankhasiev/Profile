@@ -7,6 +7,10 @@
   margin-bottom: 48px;
   mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
   -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+
+  @include respond-to('sm') {
+    margin-bottom: 32px;
+  }
 }
 
 .marquee {
@@ -47,11 +51,17 @@
   color: var(--color-text-muted);
   border-radius: 8px 8px 0 0;
   transition: color var(--transition);
+  min-height: 44px;
 
   &:hover { color: var(--color-text); }
 
   &.active {
     color: var(--color-primary);
+  }
+
+  @include respond-to('sm') {
+    padding: 8px 14px;
+    font-size: 0.82rem;
   }
 }
 

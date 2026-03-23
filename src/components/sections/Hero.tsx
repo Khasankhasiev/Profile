@@ -10,6 +10,8 @@ import { candidate } from '../../data/portfolioData';
 import { scrollToSection } from '../../utils/scrollTo';
 import styles from './Hero.module.scss';
 
+const isMobile = () => window.innerWidth <= 768 || window.matchMedia('(hover: none)').matches;
+
 const Hero: React.FC = () => {
   const [particlesReady, setParticlesReady] = useState(false);
 
@@ -47,12 +49,12 @@ const Hero: React.FC = () => {
           options={{
             fullScreen: { enable: false },
             background: { color: { value: 'transparent' } },
-            fpsLimit: 60,
+            fpsLimit: isMobile() ? 30 : 60,
             particles: {
               color: { value: ['#6C63FF', '#00D9FF', '#4ADE80'] },
-              links: { enable: true, color: '#6C63FF', distance: 130, opacity: 0.15, width: 1 },
-              move: { enable: true, speed: 0.8, direction: 'none', random: true, outModes: { default: 'bounce' } },
-              number: { value: 60, density: { enable: true } },
+              links: { enable: !isMobile(), color: '#6C63FF', distance: 130, opacity: 0.15, width: 1 },
+              move: { enable: true, speed: isMobile() ? 0.4 : 0.8, direction: 'none', random: true, outModes: { default: 'bounce' } },
+              number: { value: isMobile() ? 25 : 60, density: { enable: true } },
               opacity: { value: { min: 0.1, max: 0.4 } },
               shape: { type: 'circle' },
               size: { value: { min: 1, max: 3 } },

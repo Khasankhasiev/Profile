@@ -30,6 +30,10 @@
   gap: 0;
   margin-bottom: 40px;
 
+  @include respond-to('sm') {
+    margin-bottom: 24px;
+  }
+
   &.left {
     .card { grid-column: 1; text-align: right; padding-right: 30px; }
     .connector { grid-column: 2; }
@@ -93,6 +97,10 @@
     border-color: var(--color-border-hover);
     box-shadow: var(--shadow-md);
   }
+
+  @include respond-to('sm') {
+    padding: 16px;
+  }
 }
 
 .cardTop {
@@ -149,6 +157,10 @@
   font-size: 1.15rem;
   font-weight: 700;
   margin-bottom: 4px;
+
+  @include respond-to('sm') {
+    font-size: 1rem;
+  }
 }
 
 .company {

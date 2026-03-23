@@ -4,6 +4,10 @@
   border-top: 1px solid var(--color-border);
   padding: 28px 24px;
   background: var(--color-bg-secondary);
+
+  @include respond-to('sm') {
+    padding: 24px 16px;
+  }
 }
 
 .inner {
@@ -54,8 +58,8 @@
 }
 
 .top {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);

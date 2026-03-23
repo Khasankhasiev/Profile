@@ -15,6 +15,10 @@
 .slide {
   width: 620px !important;
   max-width: 90vw;
+
+  @include respond-to('sm') {
+    max-width: 95vw;
+  }
 }
 
 .card {
@@ -99,5 +103,14 @@
   pre {
     margin: 0 !important;
     border-radius: 0 !important;
+    font-size: 0.82rem !important;
+  }
+
+  @include respond-to('sm') {
+    max-height: 260px;
+
+    pre {
+      font-size: 0.75rem !important;
+    }
   }
 }

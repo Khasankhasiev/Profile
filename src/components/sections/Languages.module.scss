@@ -34,6 +34,11 @@
     border-color: var(--color-border-hover);
     box-shadow: var(--shadow-glow);
   }
+
+  @include respond-to('sm') {
+    gap: 14px;
+    padding: 16px;
+  }
 }
 
 .langInfo {
@@ -74,6 +79,10 @@
   cursor: default;
   position: relative;
   overflow: hidden;
+
+  @include respond-to('sm') {
+    padding: 20px;
+  }
 
   &::before {
     content: '';
@@ -119,6 +128,10 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   margin-bottom: 4px;
+
+  @include respond-to('sm') {
+    font-size: 1.4rem;
+  }
 }
 
 .eduFullName {

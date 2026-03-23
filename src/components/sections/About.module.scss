@@ -11,6 +11,12 @@
 
   @include respond-to('lg') {
     grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  @include respond-to('sm') {
+    gap: 24px;
+    margin-bottom: 40px;
   }
 }
 
@@ -36,6 +42,11 @@
   &:hover {
     border-color: var(--color-primary);
     animation: pulseGlow 2s ease-in-out infinite;
+  }
+
+  @include respond-to('sm') {
+    padding: 24px 20px;
+    gap: 16px;
   }
 }
 
@@ -125,6 +136,10 @@
   font-size: 1.05rem;
   line-height: 1.8;
   color: var(--color-text);
+
+  @include respond-to('sm') {
+    font-size: 0.95rem;
+  }
 }
 
 .hobbiesLabel {
@@ -187,6 +202,10 @@
   gap: 6px;
   transition: all var(--transition);
   cursor: default;
+
+  @include respond-to('sm') {
+    padding: 16px 12px;
+  }
 }
 
 .statValue {
@@ -198,10 +217,18 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   line-height: 1;
+
+  @include respond-to('sm') {
+    font-size: 1.9rem;
+  }
 }
 
 .statLabel {
   font-size: 0.82rem;
   color: var(--color-text-muted);
   line-height: 1.4;
+
+  @include respond-to('sm') {
+    font-size: 0.76rem;
+  }
 }

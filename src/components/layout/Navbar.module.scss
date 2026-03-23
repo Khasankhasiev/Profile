@@ -10,6 +10,10 @@
   height: var(--navbar-height);
   transition: background var(--transition), box-shadow var(--transition);
 
+  @include respond-to('sm') {
+    padding: 0 16px;
+  }
+
   &.scrolled {
     background: rgba(10, 10, 15, 0.85);
     backdrop-filter: blur(20px);
@@ -94,6 +98,10 @@
   flex-direction: column;
   gap: 5px;
   padding: 8px;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
   border-radius: 8px;
   transition: background var(--transition);
 
@@ -138,7 +146,8 @@
 }
 
 .mobileLink {
-  padding: 12px 16px;
+  padding: 14px 16px;
+  min-height: 48px;
   font-size: 1rem;
   font-weight: 500;
   color: var(--color-text-muted);

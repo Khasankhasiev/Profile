@@ -44,6 +44,11 @@
   flex-direction: column;
   align-items: center;
   gap: 20px;
+
+  @include respond-to('sm') {
+    padding: 0 16px;
+    gap: 14px;
+  }
 }
 
 .greeting {
@@ -58,7 +63,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  font-size: clamp(3rem, 8vw, 6rem);
+  font-size: clamp(2.4rem, 8vw, 6rem);
   font-weight: 700;
   font-family: var(--font-heading);
   line-height: 1;
@@ -92,9 +97,17 @@
   align-items: center;
   gap: 10px;
   font-family: var(--font-heading);
-  font-size: clamp(1.1rem, 3vw, 1.6rem);
+  font-size: clamp(1rem, 3vw, 1.6rem);
   font-weight: 500;
   height: 40px;
+
+  @include respond-to('sm') {
+    height: auto;
+    min-height: 34px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+  }
 }
 
 .rolePrefix {
@@ -115,6 +128,10 @@
   color: var(--color-text-muted);
   max-width: 480px;
   line-height: 1.7;
+
+  @include respond-to('sm') {
+    font-size: 0.92rem;
+  }
 }
 
 .actions {
@@ -137,6 +154,12 @@
   font-family: var(--font-heading);
   transition: var(--transition);
   box-shadow: 0 4px 20px rgba(108, 99, 255, 0.35);
+  min-height: 48px;
+
+  @include respond-to('sm') {
+    padding: 12px 22px;
+    font-size: 0.9rem;
+  }
 }
 
 .btnOutline {
@@ -149,11 +172,17 @@
   font-weight: 600;
   font-family: var(--font-heading);
   transition: all var(--transition);
+  min-height: 48px;
 
   &:hover {
     border-color: var(--color-primary);
     color: var(--color-primary);
     background: rgba(108, 99, 255, 0.08);
+  }
+
+  @include respond-to('sm') {
+    padding: 12px 22px;
+    font-size: 0.9rem;
   }
 }
 
@@ -162,6 +191,12 @@
   align-items: center;
   gap: 16px;
   margin-top: 4px;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  @include respond-to('sm') {
+    gap: 10px;
+  }
 }
 
 .social {
@@ -195,8 +230,18 @@
   text-transform: uppercase;
   cursor: pointer;
   transition: color var(--transition);
+  min-height: 48px;
+  justify-content: center;
 
   &:hover { color: var(--color-primary); }
+
+  @include respond-to('sm') {
+    bottom: 20px;
+
+    span:first-child {
+      display: none;
+    }
+  }
 }
 
 .chevron {

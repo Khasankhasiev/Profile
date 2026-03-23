@@ -2,6 +2,11 @@
   margin-bottom: 60px;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 480px) {
+    margin-bottom: 40px;
+  }
+
   &.centered {
     text-align: center;
 
@@ -38,6 +43,10 @@
   max-width: 540px;
   line-height: 1.7;
   align-self: center;
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+  }
 }
 
 .line {
