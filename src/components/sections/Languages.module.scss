@@ -1,0 +1,146 @@
+@import '../../styles/mixins';
+
+.section {}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+
+  @include respond-to('lg') {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+.langList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.langCard {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--card-radius);
+  padding: 20px;
+  transition: all var(--transition);
+  cursor: default;
+
+  &:hover {
+    border-color: var(--color-border-hover);
+    box-shadow: var(--shadow-glow);
+  }
+}
+
+.langInfo {
+  flex: 1;
+}
+
+.langName {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.langLevel {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.langBar {
+  height: 4px;
+  background: var(--color-bg-secondary);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.langBarFill {
+  height: 100%;
+  border-radius: 2px;
+}
+
+.eduCard {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--card-radius);
+  padding: 28px;
+  transition: all var(--transition);
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-primary);
+  }
+
+  &:hover {
+    border-color: var(--color-border-hover);
+    box-shadow: var(--shadow-glow);
+  }
+}
+
+.eduYear {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+.eduBadge {
+  display: inline-block;
+  padding: 3px 12px;
+  background: rgba(108, 99, 255, 0.15);
+  color: var(--color-primary);
+  border-radius: 50px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.eduUniversity {
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 4px;
+}
+
+.eduFullName {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  margin-bottom: 16px;
+}
+
+.eduDivider {
+  height: 1px;
+  background: var(--color-border);
+  margin-bottom: 16px;
+}
+
+.eduFaculty {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.eduSpecialty {
+  font-size: 0.83rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}

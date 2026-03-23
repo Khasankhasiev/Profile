@@ -1,0 +1,217 @@
+@import '../../styles/mixins';
+
+.experience {}
+
+.timeline {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--color-primary), var(--color-accent));
+  transform: translateX(-50%);
+  transform-origin: top;
+
+  @include respond-to('md') {
+    left: 20px;
+  }
+}
+
+.item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 40px 1fr;
+  gap: 0;
+  margin-bottom: 40px;
+
+  &.left {
+    .card { grid-column: 1; text-align: right; padding-right: 30px; }
+    .connector { grid-column: 2; }
+
+    .stack { justify-content: flex-end; }
+    .achievements { align-items: flex-end; }
+    .achievement { flex-direction: row-reverse; }
+    .cardTop { justify-content: flex-end; }
+    .cardMeta { flex-direction: row-reverse; }
+
+    @include respond-to('md') {
+      .card { padding-right: 0; padding-left: 20px; text-align: left; }
+      .stack { justify-content: flex-start; }
+      .achievements { align-items: flex-start; }
+      .achievement { flex-direction: row; }
+      .cardTop { justify-content: flex-start; }
+      .cardMeta { flex-direction: row; }
+    }
+  }
+
+  &.right {
+    .card { grid-column: 3; padding-left: 30px; }
+    .connector { grid-column: 2; }
+  }
+
+  @include respond-to('md') {
+    grid-template-columns: 40px 1fr;
+
+    &.left, &.right {
+      .card { grid-column: 2; padding-left: 20px; padding-right: 0; text-align: left; }
+      .connector { grid-column: 1; }
+    }
+  }
+}
+
+.connector {
+  display: flex;
+  justify-content: center;
+  padding-top: 24px;
+  z-index: 1;
+}
+
+.dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 3px solid;
+  background: var(--color-bg);
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--card-radius);
+  padding: 22px 24px;
+  transition: all var(--transition);
+
+  &:hover {
+    border-color: var(--color-border-hover);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.cardMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.period {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+}
+
+.duration {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  font-family: var(--font-mono);
+}
+
+.current {
+  padding: 3px 10px;
+  background: rgba(74, 222, 128, 0.15);
+  color: #4ADE80;
+  border-radius: 50px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+.cardHeader {
+  margin-bottom: 10px;
+}
+
+.role {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.company {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: opacity var(--transition);
+
+  &:hover { opacity: 0.75; }
+}
+
+.description {
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+.achievements {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.achievement {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+.bullet {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.techTag {
+  padding: 4px 10px;
+  background: transparent;
+  border: 1px solid;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  color: var(--color-text-muted);
+  cursor: default;
+  transition: all var(--transition);
+
+  &:hover {
+    color: var(--color-text);
+    background: var(--color-bg-secondary);
+  }
+}

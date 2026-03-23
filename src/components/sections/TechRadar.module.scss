@@ -1,0 +1,154 @@
+@import '../../styles/mixins';
+
+.radar {
+  background: var(--color-bg-secondary);
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.heading {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 700;
+}
+
+.wrapper {
+  position: relative;
+  width: 420px;
+  height: 420px;
+  margin: 0 auto;
+
+  @include respond-to('sm') {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+.ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border-style: dashed;
+  border-color: var(--color-border);
+  pointer-events: none;
+}
+
+.ring1 {
+  width: 230px;
+  height: 230px;
+  border-width: 1.5px;
+  border-color: rgba(108, 99, 255, 0.2);
+
+  @include respond-to('sm') {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+.ring2 {
+  width: 375px;
+  height: 375px;
+  border-width: 1.5px;
+  border-color: rgba(0, 217, 255, 0.15);
+
+  @include respond-to('sm') {
+    width: 270px;
+    height: 270px;
+  }
+}
+
+.orbitItem {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  cursor: default;
+  z-index: 2;
+}
+
+.orbitIcon {
+  font-size: 1.4rem;
+  display: flex;
+
+  @include respond-to('sm') {
+    font-size: 1.1rem;
+  }
+}
+
+.orbitLabel {
+  font-size: 0.62rem;
+  font-family: var(--font-mono);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s;
+
+  .orbitItem:hover & {
+    opacity: 1;
+  }
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+.centerInner {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-bg-card), var(--color-bg-secondary));
+  border: 2px solid var(--color-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+
+  @include respond-to('sm') {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+.centerText {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 700;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+
+  @include respond-to('sm') {
+    font-size: 0.75rem;
+  }
+}
+
+.centerSub {
+  font-size: 0.6rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+
+  @include respond-to('sm') {
+    font-size: 0.5rem;
+  }
+}

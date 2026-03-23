@@ -1,0 +1,103 @@
+@import '../../styles/mixins';
+
+.showcase {}
+
+.swiperWrapper {
+  width: 100%;
+  padding: 20px 0 50px;
+}
+
+.swiper {
+  width: 100%;
+  padding: 20px 0 !important;
+}
+
+.slide {
+  width: 620px !important;
+  max-width: 90vw;
+}
+
+.card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  transition: border-color var(--transition);
+
+  &:hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-glow);
+  }
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-secondary);
+}
+
+.dots {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+
+  span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+}
+
+.cardInfo {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cardTitle {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.cardLang {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--color-primary);
+  background: rgba(108, 99, 255, 0.15);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.copyBtn {
+  color: var(--color-text-muted);
+  padding: 4px;
+  border-radius: 4px;
+  transition: all var(--transition);
+
+  &:hover {
+    color: var(--color-primary);
+    background: rgba(108, 99, 255, 0.1);
+  }
+}
+
+.cardDescription {
+  padding: 12px 16px 0;
+  font-size: 0.83rem;
+  color: var(--color-text-muted);
+}
+
+.code {
+  @include scrollbar;
+  max-height: 340px;
+  overflow-y: auto;
+  overflow-x: auto;
+
+  pre {
+    margin: 0 !important;
+    border-radius: 0 !important;
+  }
+}
