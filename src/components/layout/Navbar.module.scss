@@ -7,11 +7,21 @@
   right: 0;
   z-index: 1000;
   padding: 0 24px;
-  height: var(--navbar-height);
+  padding-top: env(safe-area-inset-top, 0px);
+  height: calc(var(--navbar-height) + env(safe-area-inset-top, 0px));
   transition: background var(--transition), box-shadow var(--transition);
 
   @include respond-to('sm') {
-    padding: 0 16px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  // На мобиле всегда с фоном — независимо от .scrolled
+  @include respond-to('lg') {
+    background: rgba(10, 10, 15, 0.95) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    box-shadow: 0 1px 0 var(--color-border) !important;
   }
 
   &.scrolled {
@@ -23,6 +33,12 @@
     [data-theme="light"] & {
       background: rgba(244, 244, 255, 0.85);
     }
+  }
+}
+
+[data-theme="light"] .navbar {
+  @include respond-to('lg') {
+    background: rgba(244, 244, 255, 0.95) !important;
   }
 }
 
@@ -65,6 +81,7 @@
   color: var(--color-text-muted);
   border-radius: 8px;
   transition: color var(--transition), background var(--transition);
+  min-height: 40px;
 
   &:hover {
     color: var(--color-text);
@@ -105,7 +122,7 @@
   border-radius: 8px;
   transition: background var(--transition);
 
-  &:hover { background: var(--color-bg-card); }
+  &:hover { background: rgba(108, 99, 255, 0.08); }
 
   span {
     display: block;
@@ -129,20 +146,18 @@
 
 .mobileMenu {
   position: absolute;
-  top: calc(var(--navbar-height) + 8px);
+  top: calc(100% + 8px);
   left: 16px;
   right: 16px;
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
   border-radius: var(--card-radius);
   padding: 12px;
-  display: none;
+  box-shadow: var(--shadow-lg);
+  display: flex;
   flex-direction: column;
   gap: 4px;
-
-  @include respond-to('lg') {
-    display: flex;
-  }
+  z-index: 1001;
 }
 
 .mobileLink {

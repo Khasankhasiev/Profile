@@ -76,8 +76,8 @@ const Contact: React.FC = () => {
               <motion.div
                 key={item.label}
                 className={styles.card}
-                initial={{ opacity: 0, x: -40 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.5 }}
                 whileHover={{ y: -4, borderColor: item.color }}

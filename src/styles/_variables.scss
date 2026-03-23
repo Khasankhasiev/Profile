@@ -45,6 +45,7 @@
   // Sizes
   --max-width: 1200px;
   --navbar-height: 72px;
+  --navbar-height-safe: calc(72px + env(safe-area-inset-top, 0px));
   --card-radius: 16px;
   --card-radius-sm: 10px;
 

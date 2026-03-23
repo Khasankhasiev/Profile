@@ -5,6 +5,8 @@ export const useLenis = () => {
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
+    // Не инициализировать Lenis на тач-устройствах — нативный скролл лучше
+    if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
     if (lenisRef.current) return;
 
     const lenis = new Lenis({

@@ -16,6 +16,11 @@ import 'swiper/css/pagination';
 import 'swiper/css/effect-coverflow';
 import styles from './CodeShowcase.module.scss';
 
+// На мобиле EffectCoverflow использует 3D-трансформы rotateY,
+// которые обрезаются overflow-x: hidden на body.
+// Инициализируем один раз — эффект Swiper нельзя менять реактивно.
+const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
 const CodeShowcase: React.FC = () => {
   const { theme } = useTheme();
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
@@ -42,18 +47,20 @@ const CodeShowcase: React.FC = () => {
 
       <div className={styles.swiperWrapper}>
         <Swiper
-          modules={[Navigation, Pagination, EffectCoverflow]}
-          effect="coverflow"
+          key={isMobile ? 'mobile' : 'desktop'}
+          modules={isMobile ? [Navigation, Pagination] : [Navigation, Pagination, EffectCoverflow]}
+          effect={isMobile ? 'slide' : 'coverflow'}
           grabCursor
           centeredSlides
-          slidesPerView="auto"
-          coverflowEffect={{ rotate: 30, stretch: 0, depth: 100, modifier: 1, slideShadows: false }}
+          slidesPerView={isMobile ? 1 : 'auto'}
+          spaceBetween={isMobile ? 16 : 0}
+          coverflowEffect={isMobile ? undefined : { rotate: 30, stretch: 0, depth: 100, modifier: 1, slideShadows: false }}
           pagination={{ clickable: true }}
           navigation
           className={styles.swiper}
         >
           {codeSnippets.map((snippet, i) => (
-            <SwiperSlide key={i} className={styles.slide}>
+            <SwiperSlide key={i} className={isMobile ? styles.slideMobile : styles.slide}>
               <motion.div
                 className={styles.card}
                 initial={{ opacity: 0, y: 30 }}
@@ -92,7 +99,7 @@ const CodeShowcase: React.FC = () => {
                       background: 'transparent',
                       padding: '16px',
                       margin: 0,
-                      fontSize: '0.8rem',
+                      fontSize: isMobile ? '0.75rem' : '0.8rem',
                       lineHeight: '1.6',
                     }}
                     showLineNumbers

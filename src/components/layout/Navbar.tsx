@@ -24,35 +24,43 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Закрывать меню при скролле страницы
   useEffect(() => {
-    const sectionIds = navLinks.map(l => l.id);
+    if (!menuOpen) return;
+    const onScroll = () => setMenuOpen(false);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [menuOpen]);
 
+  // Блокировка скролла при открытом меню
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
+
+  // Активная секция
+  useEffect(() => {
     const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) setActive(entry.target.id);
-        });
-      },
+      entries => entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); }),
       { rootMargin: '-30% 0px -60% 0px' }
     );
-
-    sectionIds.forEach(id => {
+    navLinks.forEach(({ id }) => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
-
     return () => observer.disconnect();
   }, []);
 
+  // Закрытие при клике вне меню
   useEffect(() => {
     if (!menuOpen) return;
-    const handleClick = (e: MouseEvent) => {
+    const onDown = (e: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
         setMenuOpen(false);
       }
     };
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
+    document.addEventListener('mousedown', onDown);
+    return () => document.removeEventListener('mousedown', onDown);
   }, [menuOpen]);
 
   const handleNav = (id: string) => {
@@ -61,79 +69,104 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <motion.header
-      className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}
-      initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, delay: 1.8 }}
-    >
-      <div className={styles.inner}>
-        <motion.div
-          className={styles.logo}
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <span className={styles.logoText}>ХХ</span>
-        </motion.div>
-
-        <nav className={styles.links}>
-          {navLinks.map((link, i) => (
-            <motion.button
-              key={link.id}
-              className={`${styles.link} ${active === link.id ? styles.active : ''}`}
-              onClick={() => handleNav(link.id)}
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 2 + i * 0.08 }}
-            >
-              {link.label}
-              {active === link.id && (
-                <motion.div className={styles.activeDot} layoutId="activeDot" />
-              )}
-            </motion.button>
-          ))}
-        </nav>
-
-        <div className={styles.actions}>
-          <ThemeToggle />
-          <motion.button
-            className={`${styles.burger} ${menuOpen ? styles.open : ''}`}
-            onClick={() => setMenuOpen(v => !v)}
-            whileTap={{ scale: 0.9 }}
-            aria-label="Menu"
-          >
-            <span /><span /><span />
-          </motion.button>
-        </div>
-      </div>
-
+    <>
+      {/* Backdrop — вне header, чтобы не создавать конфликт stacking context */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            ref={menuRef}
-            className={styles.mobileMenu}
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.25 }}
+            key="nav-backdrop"
+            style={{
+              position: 'fixed',
+              inset: 0,
+              background: 'rgba(0,0,0,0.55)',
+              zIndex: 999,
+            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => setMenuOpen(false)}
+          />
+        )}
+      </AnimatePresence>
+
+      <motion.header
+        className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, delay: 1.8 }}
+      >
+        <div className={styles.inner}>
+          <motion.div
+            className={styles.logo}
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
+            <span className={styles.logoText}>ХХ</span>
+          </motion.div>
+
+          <nav className={styles.links}>
             {navLinks.map((link, i) => (
               <motion.button
                 key={link.id}
-                className={`${styles.mobileLink} ${active === link.id ? styles.active : ''}`}
+                className={`${styles.link} ${active === link.id ? styles.active : ''}`}
                 onClick={() => handleNav(link.id)}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.06 }}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 2 + i * 0.08 }}
               >
                 {link.label}
+                {active === link.id && (
+                  <motion.div className={styles.activeDot} layoutId="activeDot" />
+                )}
               </motion.button>
             ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.header>
+          </nav>
+
+          <div className={styles.actions}>
+            <ThemeToggle />
+            <motion.button
+              className={`${styles.burger} ${menuOpen ? styles.open : ''}`}
+              onClick={() => setMenuOpen(v => !v)}
+              whileTap={{ scale: 0.9 }}
+              aria-label={menuOpen ? 'Закрыть меню' : 'Открыть меню'}
+              aria-expanded={menuOpen}
+            >
+              <span /><span /><span />
+            </motion.button>
+          </div>
+        </div>
+
+        {/* Мобильное меню — внутри header, но backdrop снаружи */}
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              key="nav-menu"
+              ref={menuRef}
+              className={styles.mobileMenu}
+              initial={{ opacity: 0, y: -12, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -12, scale: 0.97 }}
+              transition={{ duration: 0.22, ease: 'easeOut' }}
+            >
+              {navLinks.map((link, i) => (
+                <motion.button
+                  key={link.id}
+                  className={`${styles.mobileLink} ${active === link.id ? styles.active : ''}`}
+                  onClick={() => handleNav(link.id)}
+                  initial={{ opacity: 0, x: -16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                >
+                  {link.label}
+                </motion.button>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.header>
+    </>
   );
 };
 

@@ -2,6 +2,10 @@
 
 .radar {
   background: var(--color-bg-secondary);
+
+  @media (max-width: 480px) {
+    display: none;
+  }
 }
 
 .title {
@@ -24,15 +28,26 @@
   font-weight: 700;
 }
 
+// Враппер — фиксированный 420px в JS-мире.
+// На мобиле масштабируем через CSS scale, чтобы не ломать позиции орбит
 .wrapper {
   position: relative;
   width: 420px;
   height: 420px;
   margin: 0 auto;
 
+  @include respond-to('md') {
+    transform: scale(0.8);
+    // Компенсируем пространство: 420 * (1 - 0.8) / 2 = 42px
+    margin-top: -42px;
+    margin-bottom: -42px;
+  }
+
   @include respond-to('sm') {
-    width: 300px;
-    height: 300px;
+    transform: scale(0.65);
+    // Компенсируем: 420 * (1 - 0.65) / 2 = 73.5px
+    margin-top: -74px;
+    margin-bottom: -74px;
   }
 }
 
@@ -52,11 +67,6 @@
   height: 230px;
   border-width: 1.5px;
   border-color: rgba(108, 99, 255, 0.2);
-
-  @include respond-to('sm') {
-    width: 160px;
-    height: 160px;
-  }
 }
 
 .ring2 {
@@ -64,11 +74,6 @@
   height: 375px;
   border-width: 1.5px;
   border-color: rgba(0, 217, 255, 0.15);
-
-  @include respond-to('sm') {
-    width: 270px;
-    height: 270px;
-  }
 }
 
 .orbitItem {
@@ -84,10 +89,6 @@
 .orbitIcon {
   font-size: 1.4rem;
   display: flex;
-
-  @include respond-to('sm') {
-    font-size: 1.1rem;
-  }
 }
 
 .orbitLabel {
@@ -122,11 +123,6 @@
   align-items: center;
   justify-content: center;
   gap: 2px;
-
-  @include respond-to('sm') {
-    width: 70px;
-    height: 70px;
-  }
 }
 
 .centerText {
@@ -137,18 +133,10 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-
-  @include respond-to('sm') {
-    font-size: 0.75rem;
-  }
 }
 
 .centerSub {
   font-size: 0.6rem;
   color: var(--color-text-muted);
   font-family: var(--font-mono);
-
-  @include respond-to('sm') {
-    font-size: 0.5rem;
-  }
 }
